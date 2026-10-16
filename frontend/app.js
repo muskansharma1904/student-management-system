@@ -114,6 +114,7 @@
   async function fetchAll() {
     const r = await api('/api/students');
     state.all = r.data || [];
+    const nb = $('#nav-count'); nb.textContent = state.all.length; nb.classList.remove('hidden');
     const depts = [...new Set(state.all.map((s) => s.department))].sort();
     $('#dept-list').replaceChildren(...depts.map((d) => { const o = el('option'); o.value = d; return o; }));
     const sel = $('#dept-filter'); const cur = sel.value;
@@ -152,11 +153,12 @@
     requestAnimationFrame(step);
   }
   async function loadHome() {
-    $('#api-url').textContent = API || 'not configured';
     setStatus('wait wait', 'Connecting…');
+    const wake = setTimeout(() => { $('#wake-note').classList.remove('hidden'); setStatus('wait wait', 'Waking up server…'); }, 3500);
     showSkeleton($('#recent'), 3);
     try {
       const h = await api('/health');
+      clearTimeout(wake); $('#wake-note').classList.add('hidden');
       setStatus('ok', 'API online');
       $('#stat-db').textContent = h.database === 'connected' ? 'Connected' : h.database;
       const all = await fetchAll();
@@ -185,6 +187,7 @@
         requestAnimationFrame(() => requestAnimationFrame(() => { fill.style.width = `${(n / max) * 100}%`; }));
       });
     } catch (e) {
+      clearTimeout(wake); $('#wake-note').classList.add('hidden');
       setStatus('err', 'API unreachable');
       $('#stat-db').textContent = 'Offline';
       ['#stat-total', '#stat-dept', '#stat-sem'].forEach((s) => { $(s).textContent = '–'; });

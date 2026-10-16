@@ -29,7 +29,7 @@
           <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2"/><path d="M18 14v6M15 17h6"/></svg><span>Add Student</span>
         </button>
         <button data-page="list">
-          <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg><span>Students</span>
+          <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg><span>Students</span><em id="nav-count" class="badge hidden"></em>
         </button>
         <button data-page="search">
           <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search</span>
@@ -50,10 +50,11 @@
 
       <!-- DASHBOARD -->
       <section id="page-home" class="page">
-        <header class="page-head">
-          <div><h1>Dashboard</h1><p>Overview of your student records at a glance.</p></div>
-          <button class="btn primary" data-go="add">+ New student</button>
+        <header class="hero">
+          <div><h1>Welcome to EduTrack</h1><p>Manage student records, track departments and keep everything in one place.</p></div>
+          <button class="btn light" data-go="add">+ New student</button>
         </header>
+        <div id="wake-note" class="wake hidden">The server is waking up. The first load can take up to a minute, please wait…</div>
 
         <div class="stats">
           <div class="stat"><div class="stat-ico c1"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 12 0v1"/><path d="M17 11a3 3 0 1 0 0-6M22 21v-1a5 5 0 0 0-4-4.9"/></svg></div><div><span>Total students</span><strong id="stat-total">–</strong></div></div>
@@ -71,15 +72,6 @@
             <div class="card-head"><h2>By department</h2></div>
             <div id="dept-chart"></div>
           </div>
-        </div>
-
-        <div class="card arch-card">
-          <div class="arch">
-            <div class="tier"><b>Netlify</b><span>Frontend</span></div><i>→</i>
-            <div class="tier"><b>Render</b><span>Node / Express API</span></div><i>→</i>
-            <div class="tier"><b>MongoDB Atlas</b><span>studentDB.students</span></div>
-          </div>
-          <p class="muted small">API: <span id="api-url"></span> · Free-tier servers may take 30–60 s to wake up on the first request.</p>
         </div>
       </section>
 
